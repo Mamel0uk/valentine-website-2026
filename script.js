@@ -186,6 +186,21 @@ function celebrate() {
     
     // Create heart explosion effect
     createHeartExplosion();
+    if (config.music.enabled) {
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+
+        if (bgMusic) {
+            bgMusic.volume = config.music.volume || 0.5;
+
+            bgMusic.play().then(() => {
+                if (musicToggle) musicToggle.textContent = config.music.stopText;
+            }).catch(() => {
+                // If browser blocks it for any reason, keep the button ready
+                if (musicToggle) musicToggle.textContent = config.music.startText;
+            });
+        }
+    }
 }
 
 // Create heart explosion animation
